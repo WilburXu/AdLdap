@@ -1,0 +1,14 @@
+{
+    "name": "wilburxu/adldap",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WilburXu",
+            "email": "287887940@qq.com"
+        }
+    ],
+    "require": {
+		"php": ">=7.0.0"
+	}
+}
