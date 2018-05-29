@@ -4,6 +4,9 @@
  * Date: 2018/5/29
  * Time: 17:21
  */
+
+namespace AdLdap;
+
 class Ldap
 {
     protected $_conn = null;
