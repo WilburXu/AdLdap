@@ -10,11 +10,9 @@
     ],
     "require": {
 		"php": ">=7.0.0",
-        "wilburxu/adldap": "^1.0"
+        "wilburxu/adldap": "dev-master"
 	},
 	"autoload": {
-      "psr-4": {
-          "AdLdap\\": "src/Ldap/"
-      }
+      "psr-4": { "AdLdap\\": "src/" }
     }
 }
