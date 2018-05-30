@@ -8,9 +8,6 @@
             "email": "287887940@qq.com"
         }
     ],
-    "require": {
-		"php": ">=7.0.0"
-	},
     "autoload": {
         "psr-4": {
             "AdLdap\\": "src/"
