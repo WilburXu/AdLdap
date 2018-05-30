@@ -22,7 +22,9 @@ class Ldap
     public function __destruct()
     {
         if ($this->_conn) {
+            
             ldap_close($this->_conn);
+
         }
     }
 }
