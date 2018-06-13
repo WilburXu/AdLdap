@@ -45,28 +45,62 @@ class Ldap
         return $this;
     }
 
-
-    public function search($baseDn = null, $filter = null)
+    /**
+     * 获取数据
+     * @param null $baseDn
+     * @param null $filter
+     * @param array $attributes
+     * @return array|bool|int|null
+     */
+    public function search($baseDn = null, $filter = null, $attributes = ['dn'])
     {
         if (empty($baseDn) || empty($filter)) {
             return false;
         }
 
-        $searchResults = ldap_search($this->_conn, $baseDn, ($filter));
+        $searchResults = ldap_search($this->_conn, $baseDn, ($filter), $attributes);
 
         if ($this->_errorNo = $this->ldapErrno()) {
             return $this->_errorNo;
         }
 
-        $data = self::getEntries($searchResults);
+        $data = self::_getEntries($searchResults);
 
         return $data;
     }
 
+    /**
+     * ldap_modify
+     * @param null $baseDn
+     * @param $modifyInfo
+     * @return bool
+     */
     public function ldapModify($baseDn = null, $modifyInfo)
     {
         return @ldap_modify($this->_conn, $baseDn, $modifyInfo);
     }
+
+    /**
+     * ldap_add
+     * @param null $baseDn
+     * @param $addInfo
+     * @return bool
+     */
+    public function ldapAdd($baseDn = null, $addInfo)
+    {
+        return @ldap_add($this->_conn, $baseDn, $addInfo);
+    }
+
+    /**
+     * ldap_delete
+     * @param null $baseDn
+     * @return bool
+     */
+    public function ldapDelete($baseDn = null)
+    {
+        return @ldap_delete($this->_conn, $baseDn);
+    }
+
 
     /**
      * set unicodePwd password
@@ -80,14 +114,6 @@ class Ldap
         }
 
         return iconv('UTF-8', 'UTF-16LE', '"'. $password .'"');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    private function getEntries($searchResults)
-    {
-        return @ldap_get_entries($this->_conn, $searchResults);
     }
 
     /**
@@ -116,5 +142,13 @@ class Ldap
         if ($this->_conn) {
             ldap_close($this->_conn);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function _getEntries($searchResults)
+    {
+        return @ldap_get_entries($this->_conn, $searchResults);
     }
 }
